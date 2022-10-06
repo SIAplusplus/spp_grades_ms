@@ -13,22 +13,22 @@ def callback(ch, method, properties, body):
     data = json.loads(body)
     print(data)
 
-    if properties.content_type == 'quote_created':
-        quote = Quote.objects.create(id=data['id'], title=data['title'])
-        quote.save()
-        print("quote created")
-    elif properties.content_type == 'quote_updated':
-        quote = Quote.objects.get(id=data['id'])
-        quote.title = data['title']
+    if properties.content_type == 'grade_created':
+        grade = Grades.objects.create(id=data['id'], id_group=data['id_group'], id_student=data['id_student'], grade=data['grade'])
+        grade.save()
+        print("grade created")
+    elif properties.content_type == 'grade_updated':
+        grade = Grades.objects.get(id=data['id'])
+        grade.title = data['title']
 
-        quote.save()
-        print("quote updated")
-    elif properties.content_type == 'quote_deleted':
-        quote = Quote.objects.get(id=data)
+        grade.save()
+        print("grade updated")
+    elif properties.content_type == 'grade_deleted':
+        grade = Grades.objects.get(id=data)
 
-        print(quote)
-        quote.delete()
-        print("quote deleted")
+        print(grade)
+        grade.delete()
+        print("grade deleted")
 channel.basic_consume(queue='spp_mq', on_message_callback=callback, auto_ack=True)
 print("Started Consuming...")
 channel.start_consuming()
