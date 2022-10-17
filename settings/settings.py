@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'Grades.apps.GradesConfig'
+    'Grades.apps.GradesConfig',
+    'django_rabbitmq'
 
 ]
 
@@ -129,3 +130,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RABBITMQ = {
+    'default': {
+        'HOST': 'host.docker.internal',
+        'PORT': 5672,
+        'VIRTUAL_HOST': '/',
+        'USER': 'admin',
+        'PASSWORD': 'password',
+        'QUEUE': 'queue'
+    }
+}
